@@ -7,14 +7,13 @@ module LessInitializer
     # optional - use as necessary
     Rack::Less.configure do |config|
       config.compress = true
-      # config.cache = true
-      # other configs ...
+      config.cache = true
     end
+
     app.use Rack::Less,
       :root      => Padrino.root,
-      :source    => 'app/stylesheets',
+      :source    => 'app/css',
       :public    => 'public',
-      :hosted_at => 'stylesheets'
-
+      :hosted_at => 'css'
   end
 end
