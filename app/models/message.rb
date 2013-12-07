@@ -1,6 +1,12 @@
 class Message
   attr_reader :id, :text
 
+  def id= new_id
+    raise "ID already set." if !self.id.nil?
+    @id = new_id
+    return @id
+  end
+
   def text= txt
     @modified = true
     @text = txt
@@ -13,11 +19,12 @@ class Message
   end
 
   def load 
-    @text = File.get_lines(self.filename).join '\n'
+    @text = File.read(self.filename)
     return self
   end
 
   def save
+    self.id = Message.gen_id if self.id.nil?
     File.open(self.filename, 'w') {|file| file.write(self.text) }
     return File.readable? self.filename
   end
@@ -43,7 +50,7 @@ class Message
   def self.valid_id? str
     not_empty = str.is_a?(String) and !str.empty?
     # TODO: Move this line into Base62
-    correct_chars = str.to_a.map {|c| Base62::SIXTYTWO.include? c }.include? false
+    correct_chars = str.split.map {|c| Base62::SIXTYTWO.include? c }.include? false
     return not_empty && correct_chars
   end
 end
