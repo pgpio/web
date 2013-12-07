@@ -80,6 +80,8 @@ GEM
     rake (10.1.0)
     ref (1.0.5)
     rr (1.1.2)
+    shotgun (0.9)
+      rack (>= 1.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -115,6 +117,7 @@ DEPENDENCIES
   rack-test
   rake
   rr
+  shotgun
   sqlite3
   therubyracer
   thin
