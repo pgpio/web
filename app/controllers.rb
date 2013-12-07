@@ -1,23 +1,23 @@
 PgpIo::App.controllers  do
+  layout :main
+
+  get :index do
+    render :index
+  end
   
-  # get :index, :map => '/foo/bar' do
-  #   session[:foo] = 'bar'
-  #   render 'index'
-  # end
+  get :about do
+    render :about
+  end
 
-  # get :sample, :map => '/sample/url', :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
+  post :m, :provides => [:any, :js] do
+    case content_type
+    when :js then
+      ret
+    else
+    end
+  end
 
-  # get :foo, :with => :id do
-  #   'Maps to url '/foo/#{params[:id]}''
-  # end
-
-  # get '/example' do
-  #   'Hello world!'
-  # end
-  
-
+  # Maps to url "/m/#{params[:id]}"
+  get :m, :with => :id do
+  end
 end
