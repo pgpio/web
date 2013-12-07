@@ -19,5 +19,11 @@ PgpIo::App.controllers  do
 
   # Maps to url "/m/#{params[:id]}"
   get :m, :with => :id do
+    begin
+      @msg = Message.get(params[:id])
+      render @msg.text
+    rescue
+      404
+    end
   end
 end
