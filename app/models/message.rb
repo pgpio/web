@@ -40,7 +40,7 @@ class Message
   end
 
   def self.gen_id
-    return (0...12).map{ o[SecureRandom.random_number(o.length)] }.join
+    return (0...12).map{ VALID_ID_CHARS[SecureRandom.random_number(VALID_ID_CHARS.length)] }.join
   end
 
   def self.get id

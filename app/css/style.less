@@ -16,6 +16,10 @@ h2 {
 }
 
 .post {
+  margin: 0 auto;
+  width: 500px;
+  height: 210px;
+
   textarea {
     outline: none;
     overflow: auto;
@@ -30,7 +34,6 @@ h2 {
     color: #444;
     color: rgba(0, 0, 0, 0.8);
     border: 1px solid #999;
-    border: 0 rgba(0, 0, 0, 0);
     background-color: #E6E6E6;
     text-decoration: none;
     border-radius: 2px;
@@ -51,6 +54,13 @@ h2 {
   }
 }
 
+label {
+  display: block;
+  text-align: left;
+  margin: 5px 0px;
+  font-weight: bold;
+}
+
 .cli {
   margin: 0 auto;
   width: 880px;
@@ -64,35 +74,29 @@ h2 {
     height: 140px;
     text-align: left;
 
-    label {
-      margin: 5px 10px;
-      font-weight: bold;
-      text-align: center;
-    }
-
     code {
       display: block;
-      margin: 10px;
+      margin: 10px 10px 10px 0px;
       height: 80px;
       padding: 10px 15px;
       background-color: #fcf3f0;
       border: 1px solid #ccc3c0;
+      font-size: 14px;
     }
   }
 }
 
 .donate {
-  line-height: 2.3em;
   font-style: italic;
+  iframe {
+    position: relative;
+    top: 4px;
+    left: 8px;
+  }
 }
 
 code .result {
   color: #666;
-}
-
-.soon {
-  margin: 30px 0px 50px;
-  font-style: italic;
 }
 
 @media all and (max-width: 910px) {
