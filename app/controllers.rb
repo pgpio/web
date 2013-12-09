@@ -10,13 +10,15 @@ PgpIo::App.controllers  do
   end
 
   post :m do
+    text = params[:text].strip
+    raise "Text is empty." if text.empty?
+    raise "Text is not valid Ascii Armored message." if not AsciiArmor.valid? text
+
     @msg = Message.new
-    # TODO: Validate text param
-    @msg.text = params[:text]
+    @msg.text = text
     @msg.save
 
-    # TODO: Use a url_for here. Can't remember the syntax.
-    redirect "/m/#{@msg.id}"
+    redirect url_for(:m, :id => @msg.id)
   end
 
   # Maps to url "/m/#{params[:id]}"
