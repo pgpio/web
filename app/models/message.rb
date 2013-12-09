@@ -9,23 +9,28 @@ class Message
 
   def text= txt
     @modified = true
-    @text = txt
+
+    # Make line endings consistent.
+    @text = txt.gsub /\r\n?/, "\n"
 
     return self.text
   end
 
   def filename
+    # TODO: Add sharding.
     return "/tmp/#{self.id}.txt"
   end
 
   def load 
-    @text = File.read(self.filename)
+    self.text = File.read(self.filename)
+    @modified = false
     return self
   end
 
   def save
     self.id = Message.gen_id if self.id.nil?
     File.open(self.filename, 'w') {|file| file.write(self.text) }
+    @modified = false
     return File.readable? self.filename
   end
 
