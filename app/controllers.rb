@@ -1,15 +1,15 @@
-PgpIo::App.controllers  do
+class PgpIo::App < Sinatra::Application
   layout :main
 
-  get :index do
-    render :index
+  get "/" do
+    erb :index
   end
   
-  get :about do
-    render :about
+  get "/about" do
+    erb :about
   end
 
-  post :m do
+  post "/m" do
     text = params[:text].strip
     raise "Text is empty." if text.empty?
     raise "Text is not valid Ascii Armored message." if not AsciiArmor.valid? text
@@ -18,11 +18,11 @@ PgpIo::App.controllers  do
     @msg.text = text
     @msg.save
 
-    redirect url_for(:m, :id => @msg.id)
+    redirect "/m/#{@msg.id}"
   end
 
   # Maps to url "/m/#{params[:id]}"
-  get :m, :with => :id do
+  get "/m/:id" do
     begin
       @msg = Message.get(params[:id])
 

@@ -1,9 +1,14 @@
 #!/usr/bin/env rackup
 # encoding: utf-8
 
-# This file can be used to start Padrino,
-# just execute it from the command line.
+# Defines our constants
+PGP_ENV  = ENV['RACK_ENV'] ||= 'development'  unless defined?(PGP_ENV)
 
-require File.expand_path("../config/boot.rb", __FILE__)
+# Load our dependencies
+require 'rubygems' unless defined?(Gem)
+require 'bundler/setup'
 
-run Padrino.application
+Bundler.require(:default, PGP_ENV)
+require ::File.join(::File.dirname(__FILE__), 'app/app.rb' )
+
+run PgpIo::App.new
