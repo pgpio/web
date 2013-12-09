@@ -39,7 +39,8 @@ class Message
   end
 
   def self.gen_id
-    return Base62::encode(SecureRandom.random_number((1.81467641e19).to_i))
+    o = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
+    return (0...12).map{ o[SecureRandom.random_number(o.length)] }.join
   end
 
   def self.get id
