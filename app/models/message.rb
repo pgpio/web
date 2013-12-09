@@ -1,4 +1,5 @@
 class Message
+  VALID_ID_CHARS = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
   attr_reader :id, :text
 
   def id= new_id
@@ -39,7 +40,6 @@ class Message
   end
 
   def self.gen_id
-    o = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
     return (0...12).map{ o[SecureRandom.random_number(o.length)] }.join
   end
 
@@ -56,7 +56,7 @@ class Message
   def self.valid_id? str
     not_empty = str.is_a?(String) and !str.empty?
     # TODO: Move this line into Base62
-    correct_chars = str.split.map {|c| Base62::SIXTYTWO.include? c }.include? false
+    correct_chars = str.split.map {|c| VALID_ID_CHARS.include? c }.include? false
     return not_empty && correct_chars
   end
 end
