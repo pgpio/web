@@ -1,12 +1,10 @@
 class PgpIo::App < Sinatra::Application
-  layout :main
-
   get "/" do
-    erb :index
+    erb :index, :layout => :'layouts/main'
   end
   
   get "/about" do
-    erb :about
+    erb :about, :layout => :'layouts/main'
   end
 
   post "/m" do

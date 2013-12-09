@@ -4,7 +4,7 @@ Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each do |file|
 end
 
 module PgpIo
-  ROOT = ::File.expand_path('..', __FILE__)
+  ROOT = ::File.expand_path('../..', __FILE__)
 
   class App < Sinatra::Application
 
