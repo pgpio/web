@@ -35,10 +35,22 @@ module PgpIo
       end
     end
 
+    # Note error blocks only render on PRODUCTION
     error 404 do
-      render 'errors/404'
+      status 404
+      erb :'errors/404'
     end
 
+    # Catches generic errors, returns a 500
+    error do
+      p env['sinatra.error']
+      @message = env['sinatra.error'].message
+
+      status 500
+      erb :'errors/500'
+    end
+
+    # Require all of the other files we need.
     require File.dirname(__FILE__) + '/controllers.rb'
     Dir[File.dirname(__FILE__) + '/models/*.rb'].each do |file|
       require file
