@@ -1,0 +1,11 @@
+<form method="post">
+  <div class="post">
+    <label>Append to this message</label>
+    <textarea name="text" placeholder="Paste ASCII armored PGP message here..."></textarea>
+    <p><input type="submit" value="Upload"></p>
+  </div>
+</form>
+
+<pre>
+<%= @msg.text %>
+</pre>

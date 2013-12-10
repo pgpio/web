@@ -17,6 +17,10 @@ class Message
     return self.text
   end
 
+  def append txt
+    self.text = self.text + "\n\n" + txt
+  end
+
   def filename
     # TODO: Add sharding.
     return "/tmp/#{self.id}.txt"
@@ -28,6 +32,7 @@ class Message
     return self
   end
 
+  # TODO: make asynchronous
   def save
     self.id = Message.gen_id if self.id.nil?
     File.open(self.filename, 'w') {|file| file.write(self.text) }
