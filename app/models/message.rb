@@ -4,6 +4,7 @@ class Message
 
   def id= new_id
     raise "ID already set." if !self.id.nil?
+    raise "Not a valid ID." if !Message.valid_id? new_id
     @id = new_id
     return @id
   end
