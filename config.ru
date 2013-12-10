@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 # Defines our constants
-PGP_ENV  = ENV['RACK_ENV'] ||= 'development'  unless defined?(PGP_ENV)
+PGP_ENV = ENV['RACK_ENV'] ||= 'development' unless defined?(PGP_ENV)
 
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)

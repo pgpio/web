@@ -1,21 +1,10 @@
-PADRINO_ENV = 'test' unless defined?(PADRINO_ENV)
-require File.expand_path('../../config/boot', __FILE__)
+PGP_ENV = ENV['RACK_ENV'] ||= 'test' unless defined?(PGP_ENV)
+require 'rubygems' unless defined?(Gem)
+require 'bundler/setup'
+
+Bundler.require(:default, PGP_ENV)
+require ::File.join(::File.dirname(__FILE__), '../app/app.rb' )
 
 class MiniTest::Unit::TestCase
-  include RR::Adapters::MiniTest
   include Rack::Test::Methods
-
-  # You can use this method to custom specify a Rack app
-  # you want rack-test to invoke:
-  #
-  #   app PgpIo::App
-  #   app PgpIo::App.tap { |a| }
-  #   app(PgpIo::App) do
-  #     set :foo, :bar
-  #   end
-  #
-  def app(app = nil, &blk)
-    @app ||= block_given? ? app.instance_eval(&blk) : app
-    @app ||= Padrino.application
-  end
 end
