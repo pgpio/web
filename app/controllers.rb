@@ -7,10 +7,10 @@ class PgpIo::App < Sinatra::Application
     erb :about, :layout => :'layouts/main'
   end
 
-  post "/m" do
+  post %r{/m/?} do
     text = params[:text].strip
     raise "Text is empty." if text.empty?
-    raise "Text is not valid Ascii Armored message." if not AsciiArmor.valid? text
+    raise "Text is not valid Ascii Armored message." if !AsciiArmor.valid? text
 
     @msg = Message.new
     @msg.text = text
@@ -24,7 +24,7 @@ class PgpIo::App < Sinatra::Application
   post "/m/:id" do
     text = params[:text].strip
     raise "Text is empty." if text.empty?
-    raise "Text is not valid Ascii Armored message." if not AsciiArmor.valid? text
+    raise "Text is not valid Ascii Armored message." if !AsciiArmor.valid? text
 
     @msg = Message.get(params[:id])
     @msg.append(text)
