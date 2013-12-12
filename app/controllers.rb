@@ -20,7 +20,7 @@ class PgpIo::App < Sinatra::Application
     @msg.text = text.strip
     @msg.save
 
-    redirect "/m/#{@msg.id}"
+    redirect "https://pgp.io/m/#{@msg.id}"
   end
 
   # Append to a location
@@ -38,7 +38,7 @@ class PgpIo::App < Sinatra::Application
     @msg.append(text.strip)
     @msg.save
 
-    redirect "/m/#{@msg.id}"
+    redirect "https://pgp.io/m/#{@msg.id}"
   end
 
   # Maps to url "/m/#{params[:id]}"
