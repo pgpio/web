@@ -19,7 +19,11 @@ class Message
   end
 
   def append txt
-    self.text = self.text + "\n\n" + txt
+    if self.text.nil?
+      self.text = txt
+    else
+      self.text = self.text + "\n\n" + txt
+    end
   end
 
   def filename
@@ -28,8 +32,10 @@ class Message
   end
 
   def load 
-    self.text = File.read(self.filename)
-    @modified = false
+    if File.exist?(self.filename)
+      self.text = File.read(self.filename)
+      @modified = false
+    end
     return self
   end
 

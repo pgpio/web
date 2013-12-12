@@ -7,22 +7,6 @@ class PgpIo::App < Sinatra::Application
     erb :about, :layout => :'layouts/main'
   end
 
-  post %r{/m/?} do
-    text = params[:text]
-    if text.nil? || text.empty?
-      text = request.body.read
-    end
-
-    raise "Text is empty." if text.empty?
-    raise "Text is not valid Ascii Armored message." if !AsciiArmor.valid? text
-
-    @msg = Message.new
-    @msg.text = text.strip
-    @msg.save
-
-    redirect "https://pgp.io/m/#{@msg.id}"
-  end
-
   # Append to a location
   # This string could also be %r{/m/[a-zA-Z0-9]\{1,32\}}
   post "/m/:id" do
@@ -36,6 +20,22 @@ class PgpIo::App < Sinatra::Application
 
     @msg = Message.get(params[:id])
     @msg.append(text.strip)
+    @msg.save
+
+    redirect "https://pgp.io/m/#{@msg.id}"
+  end
+
+  post %r{/m/?} do
+    text = params[:text]
+    if text.nil? || text.empty?
+      text = request.body.read
+    end
+
+    raise "Text is empty." if text.empty?
+    raise "Text is not valid Ascii Armored message." if !AsciiArmor.valid? text
+
+    @msg = Message.new
+    @msg.text = text.strip
     @msg.save
 
     redirect "https://pgp.io/m/#{@msg.id}"
