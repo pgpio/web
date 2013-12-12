@@ -5,17 +5,19 @@
   <div class="box">
     <label>Encrypt &amp; Send</label>
     <code>
-      $ echo "hello" | gpg -aesr '&lt;recipient&gt;' | pgpio<br>
+      $ echo 'hello' | gpg -aesr '&lt;recipient&gt;' | pgpio<br>
       <span class="result">https://pgp.io/m/Jag61Hgz19L</span>
     </code>
   </div>
   <div class="box">
     <label>Receive &amp; Decrypt</label>
     <code>
-      $ pgpio https://pgp.io/m/Jag61Hgz19L | gpg -d<br>
+      $ pgpio Jag61Hgz19L | gpg -d<br>
       <span class="result">hello</span>
     </code>
   </div>
+
+  <p><a href="https://github.com/pgpio/cli">download the command-line helper</a></p>
 </div>
 
 <form action="/m" method="post">
