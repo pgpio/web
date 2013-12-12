@@ -40,7 +40,7 @@ module PgpIo
     helpers do
       def keen_log key, data
         if !settings.development?
-          keen = new Keen::Client.new(:project_id => ENV['KEEN_PROJECT_ID'], :write_key => ENV['KEEN_WRITE_KEY'], :read_key => ENV['KEEN_READ_KEY'])
+          keen = Keen::Client.new(:project_id => ENV['KEEN_PROJECT_ID'], :write_key => ENV['KEEN_WRITE_KEY'], :read_key => ENV['KEEN_READ_KEY'])
           keen.logger = logger
           http = keen.publish_async(key, data)
         else
