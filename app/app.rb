@@ -23,6 +23,7 @@ module PgpIo
     end
 
     configure :production do
+      enable :logging
       set :clean_trace, true
       Rack::Less.configure do |config|
         config.compress = true
@@ -30,8 +31,21 @@ module PgpIo
     end
 
     configure :development do
+      enable :logging
       Rack::Less.configure do |config|
         config.compress = false
+      end
+    end
+
+    helpers do
+      def keen_log key, data
+        if !development?
+          keen = new Keen::Client.new(:project_id => ENV['KEEN_PROJECT_ID'], :write_key => ENV['KEEN_WRITE_KEY'], :read_key => ENV['KEEN_READ_KEY'])
+          keen.logger = logger
+          http = keen.publish_async(key, data)
+        else
+          logger.info "Keen { #{key}: #{data.inspect} }"
+        end
       end
     end
 

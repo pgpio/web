@@ -22,6 +22,8 @@ class PgpIo::App < Sinatra::Application
     @msg.append(text.strip)
     @msg.save
 
+    keen_log :append, {:msg_id => params[:id]}
+
     redirect "/m/#{@msg.id}"
   end
 
@@ -38,6 +40,8 @@ class PgpIo::App < Sinatra::Application
     @msg.text = text.strip
     @msg.save
 
+    keen_log :post, {:msg_id => @msg.id}
+
     redirect "/m/#{@msg.id}"
   end
 
@@ -45,6 +49,8 @@ class PgpIo::App < Sinatra::Application
   get "/m/:id" do
     begin
       @msg = Message.get(params[:id])
+
+      keen_log :get, {:msg_id => @msg.id}
 
       if params[:plain]
         content_type 'text/plain;charset=utf8'
