@@ -2,7 +2,7 @@ class PgpIo::App < Sinatra::Application
   get "/" do
     erb :index, :layout => :'layouts/main'
   end
-  
+
   get "/about" do
     erb :about, :layout => :'layouts/main'
   end
@@ -45,19 +45,31 @@ class PgpIo::App < Sinatra::Application
     redirect "/m/#{@msg.id}"
   end
 
-  # Maps to url "/m/#{params[:id]}"
-  get "/m/:id" do
+  get Regexp.new('/m/(?<id>[a-zA-Z0-9]{1,32})\.txt$') do
     begin
       @msg = Message.get(params[:id])
+      keen_log :get, {:msg_id => @msg.id, :type => :text}
 
-      keen_log :get, {:msg_id => @msg.id}
+      content_type 'text/plain;charset=utf8'
+      @msg.text
+    end
+  end
 
-      if params[:plain]
-        content_type 'text/plain;charset=utf8'
-        @msg.text
-      else
-        erb :message, :layout => :'layouts/main'
-      end
+  get Regexp.new('/m/(?<id>[a-zA-Z0-9]{1,32})\.json$') do
+    begin
+      @msg = Message.get(params[:id])
+      keen_log :get, {:msg_id => @msg.id, :type => :json}
+
+      content_type 'application/json;charset=utf8'
+      @msg.to_json
+    end
+  end
+
+  get Regexp.new('/m/(?<id>[a-zA-Z0-9]{1,32})$') do
+    begin
+      @msg = Message.get(params[:id])
+      keen_log :get, {:msg_id => @msg.id, :type => :html}
+      erb :message, :layout => :'layouts/main'
     end
   end
 end

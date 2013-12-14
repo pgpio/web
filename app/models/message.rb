@@ -31,7 +31,7 @@ class Message
     return "/tmp/#{self.id}.txt"
   end
 
-  def load 
+  def load
     if File.exist?(self.filename)
       self.text = File.read(self.filename)
       @modified = false
@@ -49,6 +49,13 @@ class Message
 
   def modified?
     return @modified
+  end
+
+  def to_json
+    return {
+      :id => self.id,
+      :text => self.text,
+    }.to_json
   end
 
   def self.gen_id

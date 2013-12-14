@@ -3,6 +3,9 @@ Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each do |file|
   require file
 end
 
+# Needed for to_json
+require 'json'
+
 module PgpIo
   ROOT = ::File.expand_path('../..', __FILE__)
 
