@@ -4,7 +4,8 @@ class PgpIo::App < Sinatra::Application
   end
 
   get "/about" do
-    erb :about, :layout => :'layouts/main'
+    @text = markdown :about
+    erb :markdown, :layout => :'layouts/main'
   end
 
   # Append to a location
