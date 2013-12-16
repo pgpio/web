@@ -56,7 +56,7 @@ module PgpIo
     # Note error blocks only render on PRODUCTION
     error 404 do
       status 404
-      erb :'errors/404', :layout => :main
+      erb :'errors/404', :layout => :'layouts/main'
     end
 
     # Catches generic errors, returns a 500
@@ -65,7 +65,7 @@ module PgpIo
       @message = env['sinatra.error'].message
 
       status 500
-      erb :'errors/500', :layout => :main
+      erb :'errors/500', :layout => :'layouts/main'
     end
 
     # Require all of the other files we need.
