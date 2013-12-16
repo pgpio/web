@@ -18,6 +18,11 @@ class Message
     return self.text
   end
 
+  def sha1
+    require 'digest/sha1'
+    return Digest::SHA1.hexdigest self.text
+  end
+
   def append txt
     if self.text.nil?
       self.text = txt

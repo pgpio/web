@@ -51,6 +51,7 @@ class PgpIo::App < Sinatra::Application
       @msg = Message.get(params[:id])
       keen_log :get, {:msg_id => @msg.id, :type => :text}
 
+      etag @msg.sha1
       content_type 'text/plain;charset=utf8'
       @msg.text
     end
@@ -61,6 +62,7 @@ class PgpIo::App < Sinatra::Application
       @msg = Message.get(params[:id])
       keen_log :get, {:msg_id => @msg.id, :type => :json}
 
+      etag @msg.sha1
       content_type 'application/json;charset=utf8'
       @msg.to_json
     end
@@ -70,6 +72,8 @@ class PgpIo::App < Sinatra::Application
     begin
       @msg = Message.get(params[:id])
       keen_log :get, {:msg_id => @msg.id, :type => :html}
+
+      etag @msg.sha1
       erb :message, :layout => :'layouts/main'
     end
   end
