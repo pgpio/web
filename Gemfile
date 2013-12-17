@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'em-http-request', '~> 1.0'
 gem 'erubis', '~> 2.7.0'
+gem 'fog'
+gem 'google-api-client'
 gem 'keen'
 gem 'less'
 gem 'minitest', '~>2.6.0', :require => 'minitest/autorun', :group => 'test'
