@@ -44,6 +44,11 @@ class Message
     return self
   end
 
+  def delete
+    File.rm self.filename
+    return File.exist?(self.filename)
+  end
+
   # TODO: make asynchronous
   def save
     self.id = Message.gen_id if self.id.nil?

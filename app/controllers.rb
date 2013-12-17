@@ -28,6 +28,7 @@ class PgpIo::App < Sinatra::Application
     redirect "/m/#{@msg.id}"
   end
 
+  # Upload a message, redirect to new message ID
   post %r{/m/?} do
     text = params[:text]
     if text.nil? || text.empty?
@@ -44,6 +45,15 @@ class PgpIo::App < Sinatra::Application
     keen_log :post, {:msg_id => @msg.id}
 
     redirect "/m/#{@msg.id}"
+  end
+
+  delete "/m/:id" do
+    @msg = Message.get(params[:id])
+    @msg.delete
+
+    keen_log :delete, {:msg_id => params[:id]}
+
+    "success"
   end
 
   get Regexp.new('/m/(?<id>[a-zA-Z0-9]{1,32})\.txt$') do
